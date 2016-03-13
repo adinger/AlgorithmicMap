@@ -22,22 +22,23 @@
 
     function initMap() {
       // create the map
-            alert("initting");
-
       var mapOptions = {
         zoom: 4,
         center: {lat: 38.5000, lng: -98.0000},
         mapTypeId: google.maps.MapTypeId.TERRAIN
       };
       map = new google.maps.Map(document.getElementById('map'), mapOptions);
-      alert("initting");
 
       // get JSON data and add each place to the gmarkers list
-      json = $.getJSON("data/us_cities.json").then(function (data) {
-        return data.items;
+      $.when(
+        $.getJSON("city_coordinates.json"),
+        $.getJSON("cities_by_category.json")
+      ).done(function (cities_and_coords, cities_by_category) {
+        var json = JSON.parse(cities_and_coords[2].responseText);
+        var city_data = json.Indianapolis;
+        alert(city_data.long);
+        //alert(cities_by_category[2].responseText);
       });
-      alert(json);
-      //$.parseJSON(json);
 
 
       // adds the place to the gmarkers list
