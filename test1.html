@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- http://stackoverflow.com/questions/3324573/filtering-google-maps-markers-with-a-checkbox -->
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <style>
+    #map {
+    margin: 20px;
+    padding: 0;
+    height: 500px;
+    width: 800px;
+    }
+    #menu {
+    margin: 0px;
+    height: 100px;
+    width: 800px;
+    }
+  </style>
+  <script>
+    var map;
+
+    function initMap() {
+      // create the map
+            alert("initting");
+
+      var mapOptions = {
+        zoom: 4,
+        center: {lat: 38.5000, lng: -98.0000},
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+      };
+      map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      alert("initting");
+
+      // get JSON data and add each place to the gmarkers list
+      json = $.getJSON("data/us_cities.json").then(function (data) {
+        return data.items;
+      });
+      alert(json);
+      //$.parseJSON(json);
+
+
+      // adds the place to the gmarkers list
+      function addLocation() {
+        return 0;
+      }
+
+      // shows the marker if it should be shown (helper for boxclick())
+      function show(category) {
+        for (var i=0; i<gmarkers.length; i++) {
+          if (gmarkers[i].mycategory == category) 
+            gmarkers[i].setVisible(true);
+        }
+        document.getElementById(category+"box").checked = true;
+      }
+
+      // hides the marker if it should be hidden (helper for boxclick())
+      function hide(category) {
+        for (var i=0; i<gmarkers.length; i++) {
+          if (gmarkers[i].mycategory == category) 
+            gmarkers[i].setVisible(false);
+        }
+        document.getElementById(category+"box").checked = false;
+        infowindow.close();
+      }
+
+      // shows the markers if their category is checked, hides them if unchecked
+      function boxclick(box,category) {
+        if (box.checked) show(category);
+        else hide(category);
+      }
+    } 
+
+    jQuery(document).ready(function(){
+      initMap();
+    });
+  </script>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="menu">
+    <form action="#">
+      <input type="checkbox" id="asianfusion"/> asianfusion&nbsp;&nbsp;
+      <input type="checkbox" id="latin"/> latin&nbsp;&nbsp;
+      <input type="checkbox" id="southern"/> southern&nbsp;&nbsp;
+      <input type="checkbox" id="italian"/> italian&nbsp;&nbsp;
+      <input type="checkbox" id="greek"/> greek&nbsp;&nbsp;
+      <input type="checkbox" id="mediterranean"/> mediterranean&nbsp;&nbsp;
+      <input type="checkbox" id="scuba"/> scuba&nbsp;&nbsp;
+      <input type="checkbox" id="rafting"/> rafting&nbsp;&nbsp;
+      <input type="checkbox" id="surfing"/> surfing&nbsp;&nbsp;
+      <input type="checkbox" id="skydiving"/> skydiving&nbsp;&nbsp;
+      <input type="checkbox" id="hiking"/> hiking&nbsp;&nbsp;
+      <input type="checkbox" id="beaches"/>beaches
+    </form>
+  </div>
+</body>
+</html>
