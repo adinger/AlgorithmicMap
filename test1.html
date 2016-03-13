@@ -47,14 +47,25 @@
           cities = citiesByCategory[category];  
           for (var c = 0; c < cities.length; c++) {
             cityObj = cities[c];
-            // TODO: addLocation(cityObj, lat, lon, category);
+            cityName = cityObj.city;
+            lat = cityCoordinates[cityName]["lat"];
+            lon = cityCoordinates[cityName]["lon"];
+            addLocation(cityObj, lat, lon, category);
           }
         }
       });
 
 
       // adds the place to the gmarkers list
-      function addLocation() {
+      function addLocation(cityObj, lat, lon, category) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lon),
+          map: map,
+          title: cityObj.city
+          //,icon: image[place.tag]  // WTF is this
+        });
+        marker.mycategory = category;
+        gmarkers.push(marker);
         return 0;
       }
 
@@ -79,9 +90,16 @@
 
       // shows the markers if their category is checked, hides them if unchecked
       function boxclick(box,category) {
+        alert(category);
         if (box.checked) show(category);
         else hide(category);
       }
+
+      $('.category').click(function (event) {
+        //http://stackoverflow.com/questions/3239598/how-can-i-get-the-id-of-an-element-using-jquery
+        boxclick(this, event.target.id);
+      });
+
     } 
 
     jQuery(document).ready(function(){
@@ -93,18 +111,18 @@
   <div id="map"></div>
   <div id="menu">
     <form action="#">
-      <input type="checkbox" id="asianfusion"/> asianfusion&nbsp;&nbsp;
-      <input type="checkbox" id="latin"/> latin&nbsp;&nbsp;
-      <input type="checkbox" id="southern"/> southern&nbsp;&nbsp;
-      <input type="checkbox" id="italian"/> italian&nbsp;&nbsp;
-      <input type="checkbox" id="greek"/> greek&nbsp;&nbsp;
-      <input type="checkbox" id="mediterranean"/> mediterranean&nbsp;&nbsp;
-      <input type="checkbox" id="scuba"/> scuba&nbsp;&nbsp;
-      <input type="checkbox" id="rafting"/> rafting&nbsp;&nbsp;
-      <input type="checkbox" id="surfing"/> surfing&nbsp;&nbsp;
-      <input type="checkbox" id="skydiving"/> skydiving&nbsp;&nbsp;
-      <input type="checkbox" id="hiking"/> hiking&nbsp;&nbsp;
-      <input type="checkbox" id="beaches"/>beaches
+      <input type="checkbox" class="category" id="asianfusion"/> asianfusion&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="latin"/> latin&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="southern"/> southern&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="italian"/> italian&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="greek"/> greek&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="mediterranean"/> mediterranean&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="scuba"/> scuba&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="rafting"/> rafting&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="surfing"/> surfing&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="skydiving"/> skydiving&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="hiking"/> hiking&nbsp;&nbsp;
+      <input type="checkbox" class="category" id="beaches"/>beaches
     </form>
   </div>
 </body>

@@ -38,7 +38,7 @@ def create_cities_by_category(infile, outfile):
 		cities_by_category[category_name] = []
 		
 		for c in range(int(len(cities_list)/2)):
-			city = city_names[c]
+			city = city_names[c].replace(" ", "_")
 			count = cities_list[c*2]
 			score = round(cities_list[c*2 + 1], 2)
 			if count != 0:
@@ -54,12 +54,11 @@ def create_coordinates_by_city(infile, outfile):
 
 	coordinates_by_city = {}
 	for city_object in lists:
-		city_name = city_object['city']
+		city_name = city_object['city'].replace(" ", "_")
 		coordinates_by_city[city_name] = {'lon':city_object['lon'], 'lat':city_object['lat']}
 
 	with open(outfile, 'w') as outfile:
 		json.dump(coordinates_by_city, outfile, indent=4)
-	pprint(coordinates_by_city)
 
 
 create_cities_by_category('result.json', 'cities_by_category.json')
