@@ -19,6 +19,9 @@
   </style>
   <script>
     var map;
+    var gmarkers = [];
+    var image = [];
+    var infowindow;
 
     function initMap() {
       // create the map
@@ -33,11 +36,20 @@
       $.when(
         $.getJSON("city_coordinates.json"),
         $.getJSON("cities_by_category.json")
-      ).done(function (cities_and_coords, cities_by_category) {
-        var json = JSON.parse(cities_and_coords[2].responseText);
-        var city_data = json.Indianapolis;
-        alert(city_data.long);
-        //alert(cities_by_category[2].responseText);
+      ).done(function (citiesData, categoriesData) {
+        var cityCoordinates = JSON.parse(citiesData[2].responseText);
+        var citiesByCategory = JSON.parse(categoriesData[2].responseText);
+        //var numCities = Object.keys(cityCoordinates).length;
+        //var numCategories = Object.keys(citiesByCategory).length;
+
+        for (var category in citiesByCategory) {
+          // get the list of cities for this category
+          cities = citiesByCategory[category];  
+          for (var c = 0; c < cities.length; c++) {
+            cityObj = cities[c];
+            // TODO: addLocation(cityObj, lat, lon, category);
+          }
+        }
       });
 
 

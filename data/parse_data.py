@@ -55,7 +55,7 @@ def create_coordinates_by_city(infile, outfile):
 	coordinates_by_city = {}
 	for city_object in lists:
 		city_name = city_object['city']
-		coordinates_by_city[city_name] = {'long':city_object['lon'], 'lat':city_object['lat']}
+		coordinates_by_city[city_name] = {'lon':city_object['lon'], 'lat':city_object['lat']}
 
 	with open(outfile, 'w') as outfile:
 		json.dump(coordinates_by_city, outfile, indent=4)

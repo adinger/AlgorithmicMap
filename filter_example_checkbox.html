@@ -35,18 +35,18 @@ function mapInit(){
       }
     });
 
-    // adds the place to the gmarkers list and sets listeners to open infoWindow when marker is clicked
+    // adds the place to the gmarkers list (and sets listeners to open infoWindow when marker is clicked)
     function addLocation(place,category) {
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(place.lat, place.lng),
         map: map,
         title: place.name,
-        icon: image[place.tag]
+        icon: image[place.tag]  // WTF is this
       });
 
       marker.mycategory = category;
       gmarkers.push(marker);
-
+      /*
       google.maps.event.addListener(marker, 'click', function() {
         if (infowindow) infowindow.close();
         infowindow = new google.maps.InfoWindow({
@@ -54,6 +54,7 @@ function mapInit(){
         });
         infowindow.open(map, marker);
       });
+      */
     }
 
     // shows the marker if it should be shown (helper for boxclick())
