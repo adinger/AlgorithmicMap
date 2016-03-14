@@ -95,7 +95,6 @@ function initMap() {
   }
 
   $('.subcategory').click(function (event) {
-    alert('clicked');
     $(this).prop('checked', this.checked);
     boxclick(this, event.target.id);  // the id of the clicked checkbox contains the category name
   });
