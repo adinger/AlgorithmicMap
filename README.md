@@ -1,2 +1,5 @@
-# GoogleMaps
-cs 467 design 3
+Usage:
+Just open index.html in any browser.
+
+Requirements:
+None
