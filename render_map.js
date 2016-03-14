@@ -6,6 +6,11 @@ var infowindow;
 var maxCountByCategory = {};  // for scaling size of circle. keeps track of maxCount for each category
 
 function initMap() {
+  // set checkbox default property
+  $('.category').prop('checked', false);
+  $('.subcategory').prop('checked', false);
+
+
   // create the map
   var mapOptions = {
     zoom: 4,
@@ -82,8 +87,7 @@ function initMap() {
 
   // shows the markers if their category is checked, hides them if unchecked
   function boxclick(box,category) {
-    //alert("boxClick(): "+category+" is "+box.prop('checked'));
-    if (box.checked || box.prop('checked')) {
+    if (box.checked || $(box).prop('checked')) {
       show(category);
     } else {
       hide(category);
@@ -91,45 +95,30 @@ function initMap() {
   }
 
   $('.subcategory').click(function (event) {
+    alert('clicked');
+    $(this).prop('checked', this.checked);
     boxclick(this, event.target.id);  // the id of the clicked checkbox contains the category name
   });
 
+
+  //// click handlers for the super categories
   cuisines = ["asianfusion","latin","southern","italian","greek","mediterranean"];
   activities = ["scuba", "rafting", "surfing","skydiving","hiking","beaches"];
 
-  // click handlers for the super categories
-  $('#allRestaurants').click(function (event) {
-    if (this.checked) {
-      for ( var c in cuisines ) {
-        cuisine = cuisines[c];
-        $('#'+cuisine).prop('checked', true);
-        $('#'+cuisine).checked = true;
-        boxclick($('#'+cuisine), cuisine);
-      }
-    } else {
-      for ( var c in cuisines ) {
-        cuisine = cuisines[c];
-        $('#'+cuisine).prop('checked', false);
-        $('#'+cuisine).checked = true;
-        boxclick($('#'+cuisine), cuisine);
-      }
-    }    
+  $('#allcuisines').click(function (event) {
+    for (var c in cuisines) {      
+      cuisine = cuisines[c];
+      $('#'+cuisine).prop('checked', this.checked);
+      boxclick($('#'+cuisine), cuisine);
+    }
   });
 
-  $('#allOutdoorActivities').click(function (event) {
-    if (this.checked) {
-      for ( var a in activities ) {
-        act = activities[a];
-        $('#'+act).prop('checked', true);
-        boxclick($('#'+act), act);
-      }
-    } else {
-      for ( var a in activities ) {
-        act = activities[a];
-        $('#'+act).prop('checked', false);
-        boxclick($('#'+act), act);
-      }
-    }    
+  $('#allactivities').click(function (event) {
+    for (var c in activities) {      
+      activity = activities[c];
+      $('#'+activity).prop('checked', this.checked);
+      boxclick($('#'+activity), activity);
+    }
   });
 } 
 

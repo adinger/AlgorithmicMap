@@ -1,3 +1,5 @@
+Code can be pulled from https://github.com/adinger/AlgorithmicMap
+
 ###Usage
 Open index.html in any browser.
 
