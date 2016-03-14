@@ -17,8 +17,8 @@ function initMap() {
   // get JSON data and add each place to the gmarkers list
   $.when(
     // chrome settings don't allow loading local files, so i had to upload the following files to a public location
-    $.getJSON("https://raw.githubusercontent.com/adinger/GoogleMaps/master/data/city_coordinates.json"),  
-    $.getJSON("https://raw.githubusercontent.com/adinger/GoogleMaps/master/data/cities_by_category.json")
+    $.getJSON("https://raw.githubusercontent.com/adinger/AlgorithmicMap/master/data/city_coordinates.json"),  
+    $.getJSON("https://raw.githubusercontent.com/adinger/AlgorithmicMap/master/data/cities_by_category.json")
   ).done(function (citiesData, categoriesData) {
     var cityCoordinates = JSON.parse(citiesData[2].responseText);
     var citiesByCategory = JSON.parse(categoriesData[2].responseText);
