@@ -159,11 +159,12 @@ var colors = {  // CSS colors for each category
 
 // creates the circle using the magnitude to determine size
 function getCircle(score, category, count, maxCount) {
+  if (activities.indexOf(category) > -1) count *= 10;
   var circle = {
     path: google.maps.SymbolPath.CIRCLE,
     fillColor: colors[category],
-    fillOpacity: score/8,
-    scale: 30*count/maxCount, //Math.pow(2, score) / 2,
+    fillOpacity: score/7,
+    scale: .1*count, //Math.pow(2, score) / 2,
     strokeColor: 'white',
     strokeWeight: .5
   };
