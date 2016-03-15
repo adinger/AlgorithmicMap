@@ -60,9 +60,26 @@ function initMap() {
       icon: getCircle(cityObj.score, category, cityObj.count, maxCountByCategory[category])
     });
     marker.mycategory = category;
+    var infowindow = new google.maps.InfoWindow({
+      content: ''
+    });
+    var cityName = cityObj.city.replace('_', ' ');
+    var cat = category.charAt(0).toUpperCase() + category.slice(1);  // capitalize first letter
+    bindInfoWindow(marker, map, infowindow, '<h4>'+cat+' in '+cityName+
+      '</h4><p>Average rating: '+cityObj.score+'</p><p>Count: '+cityObj.count+'</p>')
     marker.setVisible(false);
     gmarkers.push(marker);
     return 0;
+  }
+
+  function bindInfoWindow(marker, map, infowindow, html) {
+    google.maps.event.addListener(marker, 'mouseover', function() { 
+      infowindow.setContent(html); 
+      infowindow.open(map, marker); 
+    }); 
+    google.maps.event.addListener(marker, 'mouseout', function() { 
+      infowindow.close(); 
+    }); 
   }
 
   // shows the marker if it should be shown (helper for boxclick())
